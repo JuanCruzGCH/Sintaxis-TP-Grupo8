@@ -1,9 +1,15 @@
 %{
 #include <stdio.h>
-void yyerror(const char *s);
+#include <stdlib.h>
+
+//Es lo que usa flex para leer archivos 
+extern FILE *yyin;
+
+void reporteDeErrorLexico(const char *s);
 %}
 
 %%
+"programaPrincipal"     printf("PALABRA RESERVADA: programaPrincipal\n");
 "unInt"                 printf("PALABRA RESERVADA: unInt\n");
 "unChar"                printf("PALABRA RESERVADA: unChar\n");
 "haceEsto"              printf("PALABRA RESERVADA: haceEsto\n");
@@ -19,6 +25,7 @@ void yyerror(const char *s);
 "Porfavor"              printf("PALABRA RESERVADA: Porfavor\n");
 "Gracias"               printf("PALABRA RESERVADA: Gracias\n");
 "ok"                    printf("PALABRA RESERVADA: ok\n");
+"escribir"              printf("PALABRA RESERVADA: escribir\n");
 
 [0-9]                   printf("DIGITO: %s\n", yytext);
 
@@ -46,16 +53,39 @@ or                     printf("OPERADOR: or\n");
 
 \"([a-zA-Z0-9_.:;{}[\]"'()¿?¡!\\[+\-*\/^=<>@#$%&\|¬° ]*)\"  printf("LITERAL CADENA: %s\n", yytext);
 
-.                      yyerror("TOKEN NO RECONOCIDO");
+.                      reporteDeErrorLexico("TOKEN NO RECONOCIDO"); //El punto es el comodin
 %%
 
-void yyerror(const char* msg)
+void reporteDeErrorLexico(const char* msg)
 {
+    //Envia un mensaje de error en la pantalla
     fprintf(stderr, "Error léxico: %s\n", msg);
 }
 
-int main(void) 
+int main(int argc, char *argv[]) 
 {
+    //Si se paso un archivo como parametro se lo intenta abrir (si argc > 1 es que se le intento pasar el archivo)
+    if (argc > 1) 
+    {
+        //Abrimos el archivo para escritura, el cual seria el segundo parametro de: ./scranner archivo
+        FILE *archivo = fopen(argv[1], "r");
+
+        //En caso de que no sea valido, finaliza el programa para volver a intentarlo
+        if(!archivo)
+        {
+            fprintf(stderr, "No se pudo abrir el archivo");
+            return 1;
+        }
+        yyin = archivo;
+    }
+
+    //Analisis lexico de flex
     yylex();
+
+    if (argc > 1)
+    {
+        fclose(yyin);
+    }
+
     return 0;
 }
