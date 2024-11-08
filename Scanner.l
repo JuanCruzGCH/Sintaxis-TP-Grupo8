@@ -36,10 +36,13 @@ O[0-7]+                 { printf("CONSTANTE OCTAL: %s\n", yytext); return CONSTA
 
 [ \n]+                  ; // Espacios y saltos de línea (los ignoramos)
 
-[a-zA-Z]                { printf("CARACTER: %s\n", yytext); return IDENTIFICADOR; }
-[.,:;_{}[\]"'¿?¡!\\]    { printf("CARACTER DE PUNTUACION: %s\n", yytext); return yytext[0]; }
+[a-zA-Z]                  { printf("CARACTER: %s\n", yytext); return IDENTIFICADOR; }
+[.:;_{}"'¿?¡!\\]         { printf("CARACTER DE PUNTUACION: %s\n", yytext); return yytext[0]; }
 "("                       { printf("CARACTER: (\n"); return LPAREN; }
 ")"                       { printf("CARACTER: )\n"); return RPAREN; }
+"["                       { printf("CARACTER: [\n"); return RCORCH; }
+"]"                       { printf("CARACTER: ]\n"); return LCORCH; }
+","                       {printf("CARACTER: ,\n"); return COMA; }
 
 [a-zA-Z][a-zA-Z0-9_]{0,13}!! { printf("IDENTIFICADOR: %s\n", yytext); return IDENTIFICADOR; }
 

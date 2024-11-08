@@ -10,7 +10,7 @@ int yyerror(const char *s);
 %token OP_RELACIONAL OP_ADITIVO OP_MULTI OP_UNARIO
 %token AND OR EQ NEQ GT LT GE LE ASIGNACION
 %token PLUS MINUS NOT INCREMENT DECREMENT
-%token LPAREN RPAREN LBRACKET RBRACKET COMMA
+%token LPAREN RPAREN LBRACKET RBRACKET LCORCH RCORCH COMA
 %token UNINT UNCHAR
 %token SI FINFLUJONORMAL FLUJONORMAL FINFLUJOALTERNATIVO FLUJOALTERNATIVO
 %token MIENTRASQUE BUCLE FINBUCLE LEER ESCRIBIR OK GRACIAS HACEESTO
@@ -47,6 +47,97 @@ sentencias:
     | sentencias sentencia
     ;
 
+expresiones:
+    expresion
+    | expresion expresiones
+    ;
+
+expresion:
+    expAsignacion
+    ;
+
+expAsignacion:
+    expOr
+    | IDENTIFICADOR ASIGNACION expOr
+    ;
+
+expOr:
+    expAnd
+    | expOr OR expAnd
+    ;
+
+expAnd:
+    expIgualdad
+    | expAnd AND expIgualdad
+    ;
+
+expIgualdad:
+    expRelacional
+    | expIgualdad EQ expRelacional
+    | expIgualdad NEQ expRelacional
+    ;
+
+expRelacional:
+    expAditiva
+    | expRelacional opRelacional expAditiva
+    ;
+
+opRelacional:
+    GT
+    | LT
+    | GE
+    | LE
+    ;
+
+expAditiva:
+    expMultiplicativa
+    | expAditiva opAditivo expMultiplicativa
+    ;
+
+opAditivo:
+    PLUS
+    | MINUS
+    ;
+
+expMultiplicativa:
+    expUnaria
+    | expMultiplicativa OP_MULTI expUnaria
+    ;
+/*
+expUnaria:
+    IDENTIFICADOR INCREMENT
+    | IDENTIFICADOR DECREMENT
+    | NOT expUnaria
+    | LPAREN expresion RPAREN
+    | IDENTIFICADOR
+    | CONSTANTE
+    | LITERALCADENA
+    ;
+    */
+
+expUnaria:
+    expPostFijo
+    | expUnaria opUnario
+    ;
+
+opUnario:
+    INCREMENT
+    | DECREMENT
+    | NOT
+    ;
+
+expPostFijo:
+    expPrimaria
+    | expPostFijo LCORCH CONSTANTE RCORCH
+    ;
+
+expPrimaria:
+    LPAREN expresion RPAREN
+    | IDENTIFICADOR
+    | CONSTANTE
+    | LITERALCADENA
+    ;
+
 declaracion:
     tipoVariable variasVariables OK
     ;
@@ -58,7 +149,7 @@ tipoVariable:
 
 variasVariables:
     variable
-    | variasVariables COMMA variable
+    | variasVariables COMA variable
     ;
 
 variable:
@@ -109,65 +200,6 @@ valores:
 
 sentenciaSalida:
     ESCRIBIR LPAREN expresiones RPAREN
-    ;
-
-expresiones:
-    expresion
-    | expresion expresiones
-    ;
-
-expresion:
-    expAsignacion
-    ;
-
-expAsignacion:
-    expOr
-    | IDENTIFICADOR ASIGNACION expOr
-    ;
-
-expOr:
-    expAnd
-    | expOr OR expAnd
-    ;
-
-expAnd:
-    expIgualdad
-    | expAnd AND expIgualdad
-    ;
-
-expIgualdad:
-    expRelacional
-    | expIgualdad EQ expRelacional
-    | expIgualdad NEQ expRelacional
-    ;
-
-expRelacional:
-    expAditiva
-    | expRelacional GT expAditiva
-    | expRelacional LT expAditiva
-    | expRelacional GE expAditiva
-    | expRelacional LE expAditiva
-    ;
-
-expAditiva:
-    expMultiplicativa
-    | expAditiva PLUS expMultiplicativa
-    | expAditiva MINUS expMultiplicativa
-    ;
-
-expMultiplicativa:
-    expUnaria
-    | expMultiplicativa OP_MULTI expUnaria
-    ;
-
-expUnaria:
-    IDENTIFICADOR INCREMENT
-    | IDENTIFICADOR DECREMENT
-    | NOT expUnaria
-    | LPAREN expresion RPAREN
-    | IDENTIFICADOR
-    | CONSTANTE
-    | LITERALCADENA
     ;
 
 %%

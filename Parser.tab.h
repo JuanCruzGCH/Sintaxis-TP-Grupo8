@@ -81,22 +81,24 @@ extern int yydebug;
     RPAREN = 282,                  /* RPAREN  */
     LBRACKET = 283,                /* LBRACKET  */
     RBRACKET = 284,                /* RBRACKET  */
-    COMMA = 285,                   /* COMMA  */
-    UNINT = 286,                   /* UNINT  */
-    UNCHAR = 287,                  /* UNCHAR  */
-    SI = 288,                      /* SI  */
-    FINFLUJONORMAL = 289,          /* FINFLUJONORMAL  */
-    FLUJONORMAL = 290,             /* FLUJONORMAL  */
-    FINFLUJOALTERNATIVO = 291,     /* FINFLUJOALTERNATIVO  */
-    FLUJOALTERNATIVO = 292,        /* FLUJOALTERNATIVO  */
-    MIENTRASQUE = 293,             /* MIENTRASQUE  */
-    BUCLE = 294,                   /* BUCLE  */
-    FINBUCLE = 295,                /* FINBUCLE  */
-    LEER = 296,                    /* LEER  */
-    ESCRIBIR = 297,                /* ESCRIBIR  */
-    OK = 298,                      /* OK  */
-    GRACIAS = 299,                 /* GRACIAS  */
-    HACEESTO = 300                 /* HACEESTO  */
+    LCORCH = 285,                  /* LCORCH  */
+    RCORCH = 286,                  /* RCORCH  */
+    COMA = 287,                    /* COMA  */
+    UNINT = 288,                   /* UNINT  */
+    UNCHAR = 289,                  /* UNCHAR  */
+    SI = 290,                      /* SI  */
+    FINFLUJONORMAL = 291,          /* FINFLUJONORMAL  */
+    FLUJONORMAL = 292,             /* FLUJONORMAL  */
+    FINFLUJOALTERNATIVO = 293,     /* FINFLUJOALTERNATIVO  */
+    FLUJOALTERNATIVO = 294,        /* FLUJOALTERNATIVO  */
+    MIENTRASQUE = 295,             /* MIENTRASQUE  */
+    BUCLE = 296,                   /* BUCLE  */
+    FINBUCLE = 297,                /* FINBUCLE  */
+    LEER = 298,                    /* LEER  */
+    ESCRIBIR = 299,                /* ESCRIBIR  */
+    OK = 300,                      /* OK  */
+    GRACIAS = 301,                 /* GRACIAS  */
+    HACEESTO = 302                 /* HACEESTO  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
