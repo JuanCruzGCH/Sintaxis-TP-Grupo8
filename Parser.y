@@ -58,7 +58,7 @@ expresion:
 
 expAsignacion:
     expOr
-    | IDENTIFICADOR ASIGNACION expOr
+    | expUnaria ASIGNACION expOr
     ;
 
 expOr:
@@ -103,17 +103,6 @@ expMultiplicativa:
     expUnaria
     | expMultiplicativa OP_MULTI expUnaria
     ;
-/*
-expUnaria:
-    IDENTIFICADOR INCREMENT
-    | IDENTIFICADOR DECREMENT
-    | NOT expUnaria
-    | LPAREN expresion RPAREN
-    | IDENTIFICADOR
-    | CONSTANTE
-    | LITERALCADENA
-    ;
-    */
 
 expUnaria:
     expPostFijo
