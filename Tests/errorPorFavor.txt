@@ -1,5 +1,4 @@
 programaPrincipal conteo!!
-Porfavor
     unInt numero!! = 10 ok
         mientrasQue(numero!! < 10)
         bucle
@@ -8,4 +7,4 @@ Porfavor
             numero!! ++ ok
             gracias
         finBucle
-    Gracias
+Gracias
